@@ -1,12 +1,28 @@
 type Course {
-  id: ID!
+  _id: ID!
   title: String!
-  teacher: String!
+  teacher: String
   description: String!
   topic: String
 }
 
 type Query {
+  "devuelve la lista de todos los cursos"
   getCourses: [Course]
+  "devuelve solo un curso por id"
   getCourse(id: ID!): Course
+}
+
+# input es una planilla de los datos que se reciben
+input CourseInput {
+  "el id en generado automaticamente"
+  title: String!
+  teacher: String
+  description: String!
+  topic: String
+}
+
+type Mutation {
+  "crear un nuevo curso"
+  createCourse(input: CourseInput!): Course
 }

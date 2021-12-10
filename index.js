@@ -8,8 +8,8 @@ import express from 'express';
 import resolvers from './src/resolvers.js';
 
 const server = express();
-const __dirname = dirname(fileURLToPath(import.meta.url));
 const port = process.env.PORT || 3001;
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 // definiendo el esquema
 const typeDefs = readFileSync(

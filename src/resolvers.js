@@ -1,25 +1,9 @@
-const courses = [
-  {
-    id: '1',
-    title: 'test 1',
-    teacher: 'Belu',
-    description: 'mensaje',
-    topic: 'test',
-  },
-  {
-    id: '2',
-    title: 'test 2',
-    teacher: 'Seba',
-    description: 'mensaje',
-    topic: 'test',
-  },
-];
+import mutations from './mutations.js';
+import queries from './queries.js';
 
 const resolvers = {
-  Query: {
-    getCourses: () => courses,
-    getCourse: (root, args) => courses.find((course) => course.id === args.id),
-  },
+  Query: queries,
+  Mutation: mutations,
 };
 
 export default resolvers;
