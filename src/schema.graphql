@@ -1,15 +1,18 @@
-"validar los tipos de niveles"
+# validar los tipos de niveles
 enum Level {
   principiante
   intermedio
   avanzado
 }
 
+union GlobalSearch = Course | Student | Monitor
+
 type Course {
   _id: ID!
   title: String!
   teacher: String
   description: String!
+  # topic: String @deprecated - con deprecated se indica que el campo pronto se eliminara
   topic: String
   people: [Student]
   level: Level
@@ -38,17 +41,19 @@ type Monitor implements Person {
 }
 
 type Query {
-  "devuelve la lista de todos los cursos"
+  # devuelve la lista de todos los cursos
   getCourses: [Course]
-  "devuelve solo un curso por id"
+  # devuelve solo un curso por id
   getCourse(id: ID!): Course
   getPeople: [Person]
   getPerson(id: ID!): Person
+  # busqueda global
+  searchItems(keyword: String!): [GlobalSearch]
 }
 
 # input es una planilla de los datos que se reciben
 input CourseInput {
-  "el id es generado automaticamente por Mongo"
+  # el id es generado automaticamente por Mongo
   title: String!
   teacher: String
   description: String!
@@ -79,7 +84,7 @@ input updatePersonInput {
 }
 
 type Mutation {
-  "crear un nuevo curso"
+  # crear un nuevo curso
   createCourse(input: CourseInput!): Course
   updateCourse(id: ID!, input: updateCourseInput): Course
   deleteCourse(id: ID!): String

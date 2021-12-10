@@ -33,6 +33,13 @@ const types = {
       else return 'Student';
     },
   },
+  GlobalSearch: {
+    __resolveType: (item, context, info) => {
+      if (item.title) return 'Course';
+      if (item.phone) return 'Monitor';
+      if (item.avatar) return 'Student';
+    },
+  },
 };
 
 export default types;

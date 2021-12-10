@@ -48,6 +48,27 @@ const queries = {
       errorHandler(error);
     }
   },
+  searchItems: async (root, { keyword }) => {
+    try {
+      const db = await dbConnection();
+      const [courses, people] = await Promise.all([
+        // $text corresponde al nombre del indice creado
+        db
+          .collection('courses')
+          .find({ $text: { $search: keyword } })
+          .toArray(),
+        db
+          .collection('students')
+          .find({ $text: { $search: keyword } })
+          .toArray(),
+      ]);
+
+      const search = [...courses, ...people];
+      return search;
+    } catch (error) {
+      errorHandler(error);
+    }
+  },
 };
 
 export default queries;
