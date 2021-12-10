@@ -15,10 +15,26 @@ type Course {
   level: Level
 }
 
-type Student {
+# interface permite agrupar diferentes tipos y relacionarlos con otros
+# aqui relacionando Person con Student y Monitor
+interface Person {
   _id: ID!
   name: String!
   email: String!
+}
+
+type Student implements Person {
+  _id: ID!
+  name: String!
+  email: String!
+  avatar: String
+}
+
+type Monitor implements Person {
+  _id: ID!
+  name: String!
+  email: String!
+  phone: String
 }
 
 type Query {
@@ -26,8 +42,8 @@ type Query {
   getCourses: [Course]
   "devuelve solo un curso por id"
   getCourse(id: ID!): Course
-  getStudents: [Student]
-  getStudent(id: ID!): Student
+  getPeople: [Person]
+  getPerson(id: ID!): Person
 }
 
 # input es una planilla de los datos que se reciben
@@ -48,14 +64,18 @@ input updateCourseInput {
   topic: String
 }
 
-input StudentInput {
+input PersonInput {
   name: String!
   email: String!
+  phone: String
+  avatar: String
 }
 
-input updateStudentInput {
+input updatePersonInput {
   name: String
   email: String
+  phone: String
+  avatar: String
 }
 
 type Mutation {
@@ -63,9 +83,9 @@ type Mutation {
   createCourse(input: CourseInput!): Course
   updateCourse(id: ID!, input: updateCourseInput): Course
   deleteCourse(id: ID!): String
-  createStudent(input: StudentInput!): Student
-  updateStudent(id: ID!, input: updateStudentInput): Student
-  deleteStudent(id: ID!): String
+  createPerson(input: PersonInput!): Person
+  updatePerson(id: ID!, input: updatePersonInput): Person
+  deletePerson(id: ID!): String
   # vincular una persona a un curso
-  addPeople(courseId: ID!, personId: ID!): Course
+  addPersonToCourse(courseId: ID!, personId: ID!): Course
 }

@@ -52,47 +52,47 @@ const mutations = {
       errorHandler(error);
     }
   },
-  createStudent: async (root, { input }) => {
+  createPerson: async (root, { input }) => {
     try {
       const db = await dbConnection();
-      const newStudent = await db.collection('students').insertOne(input);
-      input._id = newStudent.insertedId;
+      const newPerson = await db.collection('students').insertOne(input);
+      input._id = newPerson.insertedId;
 
       return input;
     } catch (error) {
       errorHandler(error);
     }
   },
-  updateStudent: async (root, { id, input }) => {
+  updatePerson: async (root, { id, input }) => {
     try {
       const db = await dbConnection();
       await db
         .collection('students')
         .updateOne({ _id: ObjectId(id) }, { $set: input });
 
-      const updateStudent = await db
+      const updatePerson = await db
         .collection('students')
         .findOne({ _id: ObjectId(id) });
 
-      return updateStudent;
+      return updatePerson;
     } catch (error) {
       errorHandler(error);
     }
   },
-  deleteStudent: async (root, { id }) => {
+  deletePerson: async (root, { id }) => {
     try {
       const db = await dbConnection();
       const { deletedCount } = await db
         .collection('students')
         .deleteOne({ _id: ObjectId(id) });
 
-      if (deletedCount) return 'Estudiante eliminado exitosamente';
-      else return 'El estudiante no existe';
+      if (deletedCount) return 'Persona eliminada exitosamente';
+      else return 'La persona no existe';
     } catch (error) {
       errorHandler(error);
     }
   },
-  addPeople: async (root, { courseId, personId }) => {
+  addPersonToCourse: async (root, { courseId, personId }) => {
     try {
       const db = await dbConnection();
       const [course, person] = await Promise.all([

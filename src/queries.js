@@ -26,24 +26,24 @@ const queries = {
       errorHandler(error);
     }
   },
-  getStudents: async () => {
+  getPeople: async () => {
     try {
       const db = await dbConnection();
-      const students = await db.collection('students').find().toArray();
+      const people = await db.collection('students').find().toArray();
 
-      return students;
+      return people;
     } catch (error) {
       errorHandler(error);
     }
   },
-  getStudent: async (root, { id }) => {
+  getPerson: async (root, { id }) => {
     try {
       const db = await dbConnection();
-      const student = await db
+      const person = await db
         .collection('students')
         .findOne({ _id: ObjectId(id) });
 
-      return student;
+      return person;
     } catch (error) {
       errorHandler(error);
     }

@@ -26,6 +26,13 @@ const types = {
       }
     },
   },
+  Person: {
+    // manipulando la interface y determina si es del tipo Monitor o Student
+    __resolveType: (person, context, info) => {
+      if (person.phone) return 'Monitor';
+      else return 'Student';
+    },
+  },
 };
 
 export default types;
