@@ -1,6 +1,7 @@
 import { ObjectId } from 'mongodb';
 
 import dbConnection from './db.js';
+import errorHandler from './errorHandler.js';
 
 const queries = {
   getCourses: async () => {
@@ -10,7 +11,7 @@ const queries = {
 
       return courses;
     } catch (error) {
-      return error;
+      errorHandler(error);
     }
   },
   getCourse: async (root, { id }) => {
@@ -22,7 +23,7 @@ const queries = {
 
       return course;
     } catch (error) {
-      return error;
+      errorHandler(error);
     }
   },
   getStudents: async () => {
@@ -32,7 +33,7 @@ const queries = {
 
       return students;
     } catch (error) {
-      return error;
+      errorHandler(error);
     }
   },
   getStudent: async (root, { id }) => {
@@ -44,7 +45,7 @@ const queries = {
 
       return student;
     } catch (error) {
-      return error;
+      errorHandler(error);
     }
   },
 };

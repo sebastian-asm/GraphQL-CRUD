@@ -1,6 +1,7 @@
 import { ObjectId } from 'mongodb';
 
 import dbConnection from './db.js';
+import errorHandler from './errorHandler.js';
 
 const types = {
   Course: {
@@ -21,7 +22,7 @@ const types = {
 
         return peopleData;
       } catch (error) {
-        return error;
+        errorHandler(error);
       }
     },
   },

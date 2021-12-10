@@ -1,6 +1,7 @@
 import { ObjectId } from 'mongodb';
 
 import dbConnection from './db.js';
+import errorHandler from './errorHandler.js';
 
 const mutations = {
   createCourse: async (root, { input }) => {
@@ -19,7 +20,7 @@ const mutations = {
       input._id = newCourse.insertedId; // devuelve el ultimo id insertado
       return input;
     } catch (error) {
-      return error;
+      errorHandler(error);
     }
   },
   updateCourse: async (root, { id, input }) => {
@@ -35,7 +36,7 @@ const mutations = {
 
       return updateStudent;
     } catch (error) {
-      return error;
+      errorHandler(error);
     }
   },
   deleteCourse: async (root, { id }) => {
@@ -48,7 +49,7 @@ const mutations = {
       if (deletedCount) return 'Curso eliminado exitosamente';
       else return 'El curso no existe';
     } catch (error) {
-      return error;
+      errorHandler(error);
     }
   },
   createStudent: async (root, { input }) => {
@@ -59,7 +60,7 @@ const mutations = {
 
       return input;
     } catch (error) {
-      return error;
+      errorHandler(error);
     }
   },
   updateStudent: async (root, { id, input }) => {
@@ -75,7 +76,7 @@ const mutations = {
 
       return updateStudent;
     } catch (error) {
-      return error;
+      errorHandler(error);
     }
   },
   deleteStudent: async (root, { id }) => {
@@ -88,7 +89,7 @@ const mutations = {
       if (deletedCount) return 'Estudiante eliminado exitosamente';
       else return 'El estudiante no existe';
     } catch (error) {
-      return error;
+      errorHandler(error);
     }
   },
   addPeople: async (root, { courseId, personId }) => {
@@ -110,7 +111,7 @@ const mutations = {
 
       return course;
     } catch (error) {
-      return error;
+      errorHandler(error);
     }
   },
 };
