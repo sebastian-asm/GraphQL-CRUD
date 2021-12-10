@@ -40,6 +40,20 @@ const mutations = {
       return null;
     }
   },
+  deleteCourse: async (root, { id }) => {
+    try {
+      const db = await dbConnection();
+      const { deletedCount } = await db
+        .collection('courses')
+        .deleteOne({ _id: ObjectId(id) });
+
+      if (deletedCount) return 'Curso eliminado exitosamente';
+      else return 'El curso no existe';
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  },
   createStudent: async (root, { input }) => {
     try {
       const db = await dbConnection();
@@ -64,6 +78,20 @@ const mutations = {
         .findOne({ _id: ObjectId(id) });
 
       return updateStudent;
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  },
+  deleteStudent: async (root, { id }) => {
+    try {
+      const db = await dbConnection();
+      const { deletedCount } = await db
+        .collection('students')
+        .deleteOne({ _id: ObjectId(id) });
+
+      if (deletedCount) return 'Estudiante eliminado exitosamente';
+      else return 'El estudiante no existe';
     } catch (error) {
       console.log(error);
       return null;

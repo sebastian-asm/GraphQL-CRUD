@@ -52,6 +52,8 @@ type Mutation {
   "crear un nuevo curso"
   createCourse(input: CourseInput!): Course
   updateCourse(id: ID!, input: updateCourseInput): Course
+  deleteCourse(id: ID!): String
   createStudent(input: StudentInput!): Student
   updateStudent(id: ID!, input: updateStudentInput): Student
+  deleteStudent(id: ID!): String
 }
