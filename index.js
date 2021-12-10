@@ -18,13 +18,6 @@ const typeDefs = readFileSync(
 );
 const schema = makeExecutableSchema({ typeDefs, resolvers });
 
-server.use(
-  '/api',
-  graphqlHTTP({
-    schema,
-    // rootValue: resolvers,
-    // graphiql: true,
-  })
-);
+server.use('/api', graphqlHTTP({ schema }));
 
 server.listen(port, () => console.log('Server on port', port));

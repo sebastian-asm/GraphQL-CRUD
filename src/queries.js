@@ -27,6 +27,30 @@ const queries = {
       return null;
     }
   },
+  getStudents: async () => {
+    try {
+      const db = await dbConnection();
+      const students = await db.collection('students').find().toArray();
+
+      return students;
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  },
+  getStudent: async (root, { id }) => {
+    try {
+      const db = await dbConnection();
+      const student = await db
+        .collection('students')
+        .findOne({ _id: ObjectId(id) });
+
+      return student;
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  },
 };
 
 export default queries;
