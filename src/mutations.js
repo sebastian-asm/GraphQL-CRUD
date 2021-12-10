@@ -19,8 +19,7 @@ const mutations = {
       input._id = newCourse.insertedId; // devuelve el ultimo id insertado
       return input;
     } catch (error) {
-      console.log(error);
-      return null;
+      return error;
     }
   },
   updateCourse: async (root, { id, input }) => {
@@ -36,8 +35,7 @@ const mutations = {
 
       return updateStudent;
     } catch (error) {
-      console.log(error);
-      return null;
+      return error;
     }
   },
   deleteCourse: async (root, { id }) => {
@@ -50,8 +48,7 @@ const mutations = {
       if (deletedCount) return 'Curso eliminado exitosamente';
       else return 'El curso no existe';
     } catch (error) {
-      console.log(error);
-      return null;
+      return error;
     }
   },
   createStudent: async (root, { input }) => {
@@ -62,8 +59,7 @@ const mutations = {
 
       return input;
     } catch (error) {
-      console.log(error);
-      return null;
+      return error;
     }
   },
   updateStudent: async (root, { id, input }) => {
@@ -79,8 +75,7 @@ const mutations = {
 
       return updateStudent;
     } catch (error) {
-      console.log(error);
-      return null;
+      return error;
     }
   },
   deleteStudent: async (root, { id }) => {
@@ -93,8 +88,29 @@ const mutations = {
       if (deletedCount) return 'Estudiante eliminado exitosamente';
       else return 'El estudiante no existe';
     } catch (error) {
-      console.log(error);
-      return null;
+      return error;
+    }
+  },
+  addPeople: async (root, { courseId, personId }) => {
+    try {
+      const db = await dbConnection();
+      const [course, person] = await Promise.all([
+        db.collection('courses').findOne({ _id: ObjectId(courseId) }),
+        db.collection('students').findOne({ _id: ObjectId(personId) }),
+      ]);
+
+      if (!course || !person)
+        throw new Error('La persona o el curso no existe');
+
+      await db.collection('courses').updateOne(
+        { _id: ObjectId(courseId) },
+        // $addToSet: busca si people es un array de lo contrario lo crea y hace push de personId
+        { $addToSet: { people: ObjectId(personId) } }
+      );
+
+      return course;
+    } catch (error) {
+      return error;
     }
   },
 };

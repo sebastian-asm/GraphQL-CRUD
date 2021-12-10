@@ -10,8 +10,7 @@ const queries = {
 
       return courses;
     } catch (error) {
-      console.log(error);
-      return null;
+      return error;
     }
   },
   getCourse: async (root, { id }) => {
@@ -23,8 +22,7 @@ const queries = {
 
       return course;
     } catch (error) {
-      console.log(error);
-      return null;
+      return error;
     }
   },
   getStudents: async () => {
@@ -34,8 +32,7 @@ const queries = {
 
       return students;
     } catch (error) {
-      console.log(error);
-      return null;
+      return error;
     }
   },
   getStudent: async (root, { id }) => {
@@ -47,8 +44,7 @@ const queries = {
 
       return student;
     } catch (error) {
-      console.log(error);
-      return null;
+      return error;
     }
   },
 };
